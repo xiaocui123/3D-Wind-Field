@@ -30,7 +30,7 @@ vec3 generateRandomParticle(vec2 seed, float lev) {
 }
 
 bool particleOutbound(vec3 particle) {
-    return particle.y < -90.0 || particle.y > 90.0;
+    return particle.y < 2.0 || particle.y > 42.0 || particle.x < 104.0 || particle.x > 132.0;
 }
 
 void main() {
