@@ -13,6 +13,7 @@ uniform vec2 uSpeedRange; // (min, max);
 uniform vec2 vSpeedRange;
 uniform float pixelSize;
 uniform float speedFactor;
+uniform float ignoreValue; 
 
 float speedScaleFactor = speedFactor * pixelSize;
 
@@ -137,5 +138,10 @@ void main() {
     vec3 speedInLonLat = convertSpeedUnitToLonLat(lonLatLev, speed);
 
     vec4 particleSpeed = vec4(speedInLonLat, calculateWindNorm(speed / speedScaleFactor));
-    gl_FragColor = particleSpeed;
+	if (particleSpeed.x == ignoreValue && particleSpeed.y == ignoreValue) { 
+        gl_FragColor = vec4(0.0);
+	}
+    else{
+		gl_FragColor = particleSpeed;
+	}
 }

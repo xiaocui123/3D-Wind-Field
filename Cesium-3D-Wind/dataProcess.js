@@ -22,11 +22,13 @@ var DataProcess = (function () {
                 data.dimensions = {};
                 data.dimensions.lon = dimensions['lon'].size;
                 data.dimensions.lat = dimensions['lat'].size;
-                data.dimensions.lev = dimensions['lev'].size;
-
+                // data.dimensions.lev = dimensions['lev'].size;
+                data.dimensions.lev = dimensions['depth'].size;
                 var variables = arrayToMap(NetCDF.variables);
-                var uAttributes = arrayToMap(variables['U'].attributes);
-                var vAttributes = arrayToMap(variables['V'].attributes);
+                // var uAttributes = arrayToMap(variables['U'].attributes);
+                var uAttributes = arrayToMap(variables['water_u'].attributes);
+                // var vAttributes = arrayToMap(variables['V'].attributes);
+                var vAttributes = arrayToMap(variables['water_v'].attributes);
 
                 data.lon = {};
                 data.lon.array = new Float32Array(NetCDF.getDataVariable('lon').flat());
@@ -44,12 +46,14 @@ var DataProcess = (function () {
                 data.lev.max = Math.max(...data.lev.array);
 
                 data.U = {};
-                data.U.array = new Float32Array(NetCDF.getDataVariable('U').flat());
+                // data.U.array = new Float32Array(NetCDF.getDataVariable('U').flat());
+                data.U.array = new Float32Array(NetCDF.getDataVariable('water_u').flat());
                 data.U.min = uAttributes['min'].value;
                 data.U.max = uAttributes['max'].value;
 
                 data.V = {};
-                data.V.array = new Float32Array(NetCDF.getDataVariable('V').flat());
+                // data.V.array = new Float32Array(NetCDF.getDataVariable('V').flat());
+                data.V.array = new Float32Array(NetCDF.getDataVariable('water_v').flat());
                 data.V.min = vAttributes['min'].value;
                 data.V.max = vAttributes['max'].value;
 
